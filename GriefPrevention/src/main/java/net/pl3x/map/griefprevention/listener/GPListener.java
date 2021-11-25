@@ -1,6 +1,11 @@
-package net.pl3x.map.griefprevention.task;
+package net.pl3x.map.griefprevention.listener;
+
 
 import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.events.ClaimCreatedEvent;
+import me.ryanhamshire.GriefPrevention.events.ClaimDeletedEvent;
+import me.ryanhamshire.GriefPrevention.events.ClaimModifiedEvent;
+import me.ryanhamshire.GriefPrevention.events.TrustChangedEvent;
 import net.pl3x.map.api.Key;
 import net.pl3x.map.api.MapWorld;
 import net.pl3x.map.api.Point;
@@ -13,50 +18,35 @@ import net.pl3x.map.griefprevention.hook.GPHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-public class Pl3xMapTask extends BukkitRunnable {
-    private final MapWorld world;
-    private final SimpleLayerProvider provider;
+public class GPListener implements Listener {
 
-    private boolean stop;
+    private final Map<UUID, SimpleLayerProvider> worldCache;
 
-    public Pl3xMapTask(MapWorld world, SimpleLayerProvider provider) {
-        this.world = world;
-        this.provider = provider;
+    public GPListener(Map<UUID, SimpleLayerProvider> cache) {
+        this.worldCache = cache;
     }
 
-    @Override
-    public void run() {
-        if (stop) {
-            cancel();
-        }
-        updateClaims();
-    }
-
-    void updateClaims() {
-        provider.clearMarkers(); // TODO track markers instead of clearing them
-        Collection<Claim> topLevelClaims = GPHook.getClaims();
-        if (topLevelClaims != null) {
-            topLevelClaims.stream()
-                    .filter(claim -> claim.getGreaterBoundaryCorner().getWorld().getUID().equals(this.world.uuid()))
-                    .filter(claim -> claim.parent == null)
-                    .forEach(this::handleClaim);
-        }
-    }
-
-    private void handleClaim(Claim claim) {
+    public void addOrEditClaim(Claim claim) {
         Location min = claim.getLesserBoundaryCorner();
         Location max = claim.getGreaterBoundaryCorner();
         if (min == null) {
             return;
+        }
+
+        SimpleLayerProvider layerProvider = worldCache.get(min.getWorld().getUID());
+
+        Key key = GPHook.key(claim);
+        if (layerProvider.hasMarker(key)) {
+            layerProvider.removeMarker(key);
         }
 
         Rectangle rect = Marker.rectangle(Point.of(min.getBlockX(), min.getBlockZ()), Point.of(max.getBlockX() + 1, max.getBlockZ() + 1));
@@ -79,6 +69,7 @@ public class Pl3xMapTask extends BukkitRunnable {
                         .replace("{world}", worldName)
                         .replace("{id}", Long.toString(claim.getID()))
                         .replace("{owner}", claim.getOwnerName())
+                        .replace("{ownerUUID}", String.valueOf(claim.getOwnerID()))
                         .replace("{managers}", getNames(managers))
                         .replace("{builders}", getNames(builders))
                         .replace("{containers}", getNames(containers))
@@ -94,11 +85,18 @@ public class Pl3xMapTask extends BukkitRunnable {
 
         rect.markerOptions(options);
 
-        String markerid = "griefprevention_" + worldName + "_region_" + Long.toHexString(claim.getID());
-        this.provider.addMarker(Key.of(markerid), rect);
+        layerProvider.addMarker(key, rect);
     }
 
-    private static String getNames(List<String> list) {
+    private void removeClaim(Claim claim) {
+        Key key = GPHook.key(claim);
+        SimpleLayerProvider layerProvider = worldCache.get(claim.getLesserBoundaryCorner().getWorld().getUID());
+        if (layerProvider.hasMarker(key)) {
+            layerProvider.removeMarker(key);
+        }
+    }
+
+    private static String getNames(java.util.List<String> list) {
         List<String> names = new ArrayList<>();
         for (String str : list) {
             try {
@@ -112,10 +110,26 @@ public class Pl3xMapTask extends BukkitRunnable {
         return String.join(", ", names);
     }
 
-    public void disable() {
-        cancel();
-        this.stop = true;
-        this.provider.clearMarkers();
+    @EventHandler
+    public void onClaimCreate(ClaimCreatedEvent event) {
+        addOrEditClaim(event.getClaim());
+    }
+
+    @EventHandler
+    public void onClaimDeleted(ClaimDeletedEvent event) {
+        removeClaim(event.getClaim());
+    }
+
+    @EventHandler
+    public void onClaimModified(ClaimModifiedEvent event) {
+        removeClaim(event.getFrom());
+        addOrEditClaim(event.getTo());
+    }
+
+    @EventHandler
+    public void onTrustChange(TrustChangedEvent event) {
+        for (Claim claim : event.getClaims()) {
+            addOrEditClaim(claim);
+        }
     }
 }
-

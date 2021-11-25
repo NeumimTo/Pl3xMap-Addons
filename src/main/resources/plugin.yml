@@ -1,9 +1,0 @@
-name: "${project.name}"
-main: "${project.groupId}.Pl3xMapGriefprevention"
-version: "${project.version}"
-description: "${project.description}"
-api-version: "1.16"
-authors: [ BillyGalbreath ]
-softdepend:
-  - GriefPrevention
-  - Pl3xMap

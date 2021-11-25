@@ -1,0 +1,9 @@
+name: "Pl3xMapGriefprevention"
+main: "net.pl3x.map.griefprevention.Pl3xMapGriefprevention"
+version: "1.0.0"
+description: "GriefPrevention Pl3xMap support"
+api-version: "1.16"
+authors: [ BillyGalbreath, NeumimTo ]
+softdepend:
+  - GriefPrevention
+  - Pl3xMap

@@ -1,0 +1,31 @@
+subprojects {
+
+    apply plugin: 'java-library'
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "16"
+        targetCompatibility = "16"
+    }
+
+    compileJava.options.encoding = compileTestJava.options.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url 'https://jitpack.io'
+        }
+        maven {
+            url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        }
+        maven {
+            url "https://papermc.io/repo/repository/maven-public/"
+        }
+    }
+
+    dependencies {
+        compileOnly 'com.github.NeumimTo:Pl3xMap:master-SNAPSHOT'
+        compileOnly 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
+    }
+
+}

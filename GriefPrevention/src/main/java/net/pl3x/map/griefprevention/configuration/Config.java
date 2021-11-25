@@ -12,18 +12,27 @@ public class Config {
     public static String CONTROL_LABEL = "GriefPrevention";
     public static boolean CONTROL_SHOW = true;
     public static boolean CONTROL_HIDE = false;
-    public static int UPDATE_INTERVAL = 300;
     public static Color STROKE_COLOR = Color.GREEN;
     public static int STROKE_WEIGHT = 1;
     public static double STROKE_OPACITY = 1.0D;
     public static Color FILL_COLOR = Color.GREEN;
     public static double FILL_OPACITY = 0.2D;
     public static String STRINGS_PUBLIC = "Public";
-    public static String CLAIM_TOOLTIP = "Claim Owner: <span style=\"font-weight:bold;\">{owner}</span><br/>" +
-            "Permission Trust: <span style=\"font-weight:bold;\">{managers}</span><br/>" +
-            "Trust: <span style=\"font-weight:bold;\">{builders}</span><br/>" +
-            "Container Trust: <span style=\"font-weight:bold;\">{containers}</span><br/>" +
-            "Access Trust: <span style=\"font-weight:bold;\">{accessors}</span>";
+
+    public static String CLAIM_TOOLTIP = """
+            Owner: <span style="font-weight:bold;">{owner}</span><br/>
+            <br/>
+            <div style="text-align:center"><img src="https://mc-heads.net/avatar/{ownerUUID}/64"></img></div>
+            <div><hr/></div>
+            <br/>
+            Permission Trust: <span style="font-weight:bold;">{managers}</span><br/>
+            Trust: <span style="font-weight:bold;">{builders}</span><br/>
+            Container Trust: <span style="font-weight:bold;">{containers}</span><br/>
+            Access Trust: <span style="font-weight:bold;">{accessors}</span><br/>
+            <br/>
+            Size: {width}x{height}
+            """;
+
     public static String ADMIN_CLAIM_TOOLTIP = "<span style=\"font-weight:bold;\">Administrator Claim</span><br/>" +
             "Permission Trust: <span style=\"font-weight:bold;\">{managers}</span><br/>" +
             "Trust: <span style=\"font-weight:bold;\">{builders}</span><br/>" +
@@ -34,7 +43,6 @@ public class Config {
         CONTROL_LABEL = getString("settings.control.label", CONTROL_LABEL);
         CONTROL_SHOW = getBoolean("settings.control.show", CONTROL_SHOW);
         CONTROL_HIDE = getBoolean("settings.control.hide-by-default", CONTROL_HIDE);
-        UPDATE_INTERVAL = getInt("settings.update-interval", UPDATE_INTERVAL);
         STROKE_COLOR = getColor("settings.style.stroke.color", STROKE_COLOR);
         STROKE_WEIGHT = getInt("settings.style.stroke.weight", STROKE_WEIGHT);
         STROKE_OPACITY = getDouble("settings.style.stroke.opacity", STROKE_OPACITY);
