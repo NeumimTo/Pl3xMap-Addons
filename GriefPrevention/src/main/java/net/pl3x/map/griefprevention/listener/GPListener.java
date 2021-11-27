@@ -42,6 +42,10 @@ public class GPListener implements Listener {
             return;
         }
 
+        if (!worldCache.containsKey(min.getWorld().getUID())) {
+            return;
+        }
+
         SimpleLayerProvider layerProvider = worldCache.get(min.getWorld().getUID());
 
         Key key = GPHook.key(claim);
