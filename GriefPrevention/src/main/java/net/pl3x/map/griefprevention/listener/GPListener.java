@@ -94,6 +94,9 @@ public class GPListener implements Listener {
 
     private void removeClaim(Claim claim) {
         Key key = GPHook.key(claim);
+        if (!worldCache.containsKey(claim.getLesserBoundaryCorner().getWorld().getUID())) {
+            return;
+        }
         SimpleLayerProvider layerProvider = worldCache.get(claim.getLesserBoundaryCorner().getWorld().getUID());
         if (layerProvider.hasMarker(key)) {
             layerProvider.removeMarker(key);
