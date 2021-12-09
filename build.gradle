@@ -21,6 +21,9 @@ subprojects {
         maven {
             url "https://papermc.io/repo/repository/maven-public/"
         }
+        maven {
+            url "https://maven.enginehub.org/repo/"
+        }
     }
 
     dependencies {

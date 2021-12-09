@@ -1,0 +1,5 @@
+dependencies {
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.4'
+}
+
+setArchivesBaseName("Pl3xMap-Worldguard")
