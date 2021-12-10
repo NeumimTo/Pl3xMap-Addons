@@ -1,9 +1,9 @@
-name: "${project.name}"
-main: "${project.groupId}.Pl3xMapWorldGuard"
-version: "${project.version}"
-description: "${project.description}"
+name: "Pl3xMapWorldGuard"
+main: "net.pl3x.map.worldguard.Pl3xMapWorldGuard"
+version: "1.0.0"
+description: "Worldguard pl3xmap support"
 api-version: "1.16"
-authors: [ BillyGalbreath ]
+authors: [ BillyGalbreath, NeumimTo ]
 softdepend:
   - WorldGuard
   - Pl3xMap
