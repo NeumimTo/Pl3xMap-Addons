@@ -1,0 +1,13 @@
+name: Pl3xMap-Signs
+version: 1.0.0
+main: net.pl3x.map.signs.SignsPlugin
+api-version: 1.16
+authors: [ BillyGalbreath ]
+description: Signs addon for Pl3xMap
+softdepend:
+  - Pl3xMap
+
+permissions:
+  pl3xmap.signs.admin:
+    description: Allow controlling the plugin
+    default: op

@@ -1,0 +1,8 @@
+name: Pl3xMap-Skins
+version: 1.0.0
+main: net.pl3x.map.skins.Pl3xMapSkins
+api-version: 1.16
+authors: [ BillyGalbreath ]
+description: Skins addon for Pl3xMap
+softdepend:
+  - Pl3xMap
