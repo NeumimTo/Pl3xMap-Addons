@@ -9,6 +9,10 @@ subprojects {
 
     compileJava.options.encoding = compileTestJava.options.encoding = 'UTF-8'
 
+    jar {
+        destinationDirectory.set(file("$rootDir/jars"))
+    }
+
     repositories {
         mavenCentral()
         mavenLocal()
@@ -27,8 +31,7 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'net.pl3x.map:pl3xmap-api:1.0.0-SNAPSHOT'
-
+        compileOnly 'com.github.NeumimTo:Pl3xMap:master-SNAPSHOT'
         compileOnly 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
     }
 

@@ -2,6 +2,10 @@ rootProject.name = 'Pl3xMap-Addons'
 
 include ':GriefPrevention'
 include ':Worldguard'
+include ':CustomSkins'
+include ':Signs'
 
 project(':GriefPrevention').projectDir = file('GriefPrevention')
 project(':Worldguard').projectDir = file('Worldguard')
+project(':CustomSkins').projectDir = file('CustomSkins')
+project(':Signs').projectDir = file('Signs')
