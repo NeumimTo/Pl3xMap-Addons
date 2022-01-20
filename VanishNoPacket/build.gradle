@@ -1,0 +1,5 @@
+dependencies {
+    compileOnly 'com.github.mbax:VanishNoPacket:959b55931b'
+}
+
+setArchivesBaseName("Pl3xMap-VanishNoPacket")
