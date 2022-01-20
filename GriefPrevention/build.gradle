@@ -1,5 +1,5 @@
 dependencies {
-    compileOnly 'com.github.TechFortress:GriefPrevention:16.17.1'
+    compileOnly 'com.github.TechFortress:GriefPrevention:16.18-RC1'
 }
 
 setArchivesBaseName("Pl3xMap-GriefPrevention")
