@@ -1,0 +1,8 @@
+name: Pl3xMap-Mobs
+version: 1.0.0
+main: net.pl3x.map.mobs.Pl3xMapMobs
+api-version: 1.16
+authors: [ BillyGalbreath ]
+description: Mobs addon for Pl3xMap
+softdepend:
+  - Pl3xMap
