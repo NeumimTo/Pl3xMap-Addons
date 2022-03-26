@@ -1,4 +1,4 @@
-name: "Pl3xMapGriefprevention"
+name: "Pl3xMapVanishNoPacket"
 main: "net.pl3xmap.map.vnp.Pl3xMapVanishNoPacket"
 version: "1.0.0"
 description: "Pl3xMapVanishNoPacket Pl3xMap support"

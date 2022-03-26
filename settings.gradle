@@ -5,9 +5,11 @@ include ':Worldguard'
 include ':CustomSkins'
 include ':Signs'
 include ':VanishNoPacket'
+include ':Mobs'
 
 project(':GriefPrevention').projectDir = file('GriefPrevention')
 project(':Worldguard').projectDir = file('Worldguard')
 project(':CustomSkins').projectDir = file('CustomSkins')
 project(':Signs').projectDir = file('Signs')
 project(':VanishNoPacket').projectDir = file('VanishNoPacket')
+project(':Mobs').projectDir = file('Mobs')
